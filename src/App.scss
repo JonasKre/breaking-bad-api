@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$primary-color: rgba(13,62,16,1);
+$secondary-color: rgba(3,34,2,1);
+$tertiary-color: rgba(54, 148, 87, 1);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: $primary-color;
+  background: radial-gradient(circle, $primary-color 0%, $secondary-color 75%);
+  min-height: 100vh;
+  border-top: 8px solid $tertiary-color;
+}
+
+.app-header {
+  text-align: center;
+  padding: 2rem 0;
+  margin-bottom: 1rem;
+
+  img {
+    max-width: 250px;
+    height: auto;
+  }
+}
+
+.form {
+  display: flex;
+  max-width: 480px;
+  margin: auto;
+
+  input {
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    padding: 1rem;
+    border: none;
+    border-radius: 0;
+    font-size: 1.2rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &:not(:last-child) {
+      margin-right: 3px;
+    }
+  }
+
+  .form-input {
+    width: 70%;
+    border: 1px solid $tertiary-color;
+  }
+
+  .form-submit {
+    flex-grow: 1;
+    background-color: $tertiary-color;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .2s ease-in;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: darken($tertiary-color, 15%);
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card {
+    &-container {
+      min-height: 300px;
+      background-color: transparent;
+      perspective: 1000px;
+
+      &:hover .card-inner {
+        transform: rotateY(180deg);
+      }
+    }
+
+    &-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    &-front, &-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    &-front {
+      background-color: $primary-color;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
+
+    &-back {
+      background-color: $primary-color;
+      transform: rotateY(180deg);
+      color: #fff;
+      padding: 1rem;
+
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+      }
+
+      ul {
+        margin-top: 1rem;
+
+        li {
+          list-style-type: none;
+          padding: .5rem 1rem;
+          text-align: left;
+
+          &:nth-child(odd) {
+            background-color: $secondary-color;
+          }
+
+          &:nth-child(even) {
+            background-color: $tertiary-color;
+          }
+        }
+      }
+    }
+  }
+}
