@@ -16,6 +16,10 @@ function App() {
 		getCharacters();
     }
 
+	function handleChange(e) {
+		setQuery(e.target.value);
+	}
+
 	async function getCharacters() {
 		try {
             const response = await axios(`${BASE_URL}${query}`);
