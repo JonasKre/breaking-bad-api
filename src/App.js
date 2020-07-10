@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/header.js';
 import Form from './components/form.js';
 import Card from './components/card.js';
+import Loader from './components/loader.js';
 import axios from 'axios';
 import './App.scss';
 
@@ -10,6 +11,7 @@ function App() {
 
 	const [query, setQuery] = useState('');
 	const [characters, setCharacters] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -21,8 +23,10 @@ function App() {
 	}
 
 	async function getCharacters() {
+		setLoading(true);
 		try {
 			const response = await axios(`${BASE_URL}${query}`);
+			setLoading(false);
 			const { data } = response;
 			setCharacters(data);
 		} catch (error) {
@@ -32,10 +36,11 @@ function App() {
 
 	useEffect(() => {
 		getCharacters();
-	}, [characters]);
+	}, []);
 
 	return (
 		<div className="App">
+			{loading && <Loader />}
 			<Header />
 			<Form handleSubmit={handleSubmit} handleChange={handleChange} />
 			<div className="cards">

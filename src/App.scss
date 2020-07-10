@@ -58,6 +58,9 @@ body {
 		outline: none;
 		-webkit-appearance: none;
 		appearance: none;
+		-webkit-box-shadow: 0px 8px 14px 0px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: 0px 8px 14px 0px rgba(0, 0, 0, 0.3);
+		box-shadow: 0px 8px 14px 0px rgba(0, 0, 0, 0.3);
 
 		&:not(:last-child) {
 			margin-right: 3px;
@@ -170,6 +173,36 @@ body {
 					}
 				}
 			}
+		}
+	}
+}
+
+.loader {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.spinner {
+		&-outer {
+			position: relative;
+			width: 100px;
+			height: 100px;
+			background: transparent;
+			border-radius: 50%;
+			border: 10px solid #fff;
+			border-bottom-color: $primary-color;
+			animation: spin 1s linear infinite;
+		}
+	}
+
+	@keyframes spin {
+		100% {
+			transform: rotate(360deg);
 		}
 	}
 }
