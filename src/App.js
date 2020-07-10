@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/header.js';
 import Form from './components/form.js';
 import Card from './components/card.js';
@@ -14,7 +14,7 @@ function App() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		getCharacters();
-    }
+	}
 
 	function handleChange(e) {
 		setQuery(e.target.value);
@@ -22,13 +22,17 @@ function App() {
 
 	async function getCharacters() {
 		try {
-            const response = await axios(`${BASE_URL}${query}`);
-            const { data } = response;
+			const response = await axios(`${BASE_URL}${query}`);
+			const { data } = response;
 			setCharacters(data);
 		} catch (error) {
 			console.error(error);
 		}
 	}
+
+	useEffect(() => {
+		getCharacters();
+	}, [characters]);
 
 	return (
 		<div className="App">
@@ -36,8 +40,9 @@ function App() {
 			<Form handleSubmit={handleSubmit} handleChange={handleChange} />
 			<div className="cards">
 				{characters.length > 0 &&
-                    characters.map((character) => (<Card key={character.char_id} character={character} />))
-                }
+					characters.map((character) => (
+						<Card key={character.char_id} character={character} />
+					))}
 			</div>
 		</div>
 	);
